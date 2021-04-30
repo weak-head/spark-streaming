@@ -33,14 +33,15 @@ public final class App {
     String kafkaTopics = System.getenv("kafkaTopics");
     String kafkaGroupId = System.getenv("kafkaGroupId");
     String sparkHost = System.getenv("sparkHost");
-    String sparkPort = System.getenv("sparkPort");
     String sparkApp = System.getenv("sparkApp");
 
     // -- Spark config
     SparkConf sparkConf = new SparkConf();
-		sparkConf.set("spark.cassandra.connection.host", sparkHost);
-    sparkConf.set("spark.cassandra.connection.port", sparkPort);
+		// sparkConf.set("spark.cassandra.connection.host", cassandraHost);
+    // sparkConf.set("spark.cassandra.connection.port", cassandraPort);
+    sparkConf.setMaster(sparkHost);
     sparkConf.setAppName(sparkApp);
+    sparkConf.set("spark.testing.memory", "2147480000");
 
     // 2 seconds batch interval
     JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, Durations.seconds(2));

@@ -18,17 +18,15 @@ spec:
         env:
         - name: kafkaHost
           value: "kafka.kafka.svc.cluster.local:9092"
-        - name: kafkaTopic
+        - name: kafkaTopics
           value: "zeus"
         - name: kafkaGroupId
           value: "processor-g1"
         - name: sparkHost
-          value: "spark.spark.svc.cluster.local"
-        - name: sparkPort
-          value: "32771"
+          value: "spark://spark-master-svc.spark.svc.cluster.local:7077"
         - name: sparkApp
           value: "processor-app"
         resources:
           limits:
-            memory: "128Mi"
+            memory: "1288Mi"
             cpu: "500m"

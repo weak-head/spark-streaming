@@ -6,5 +6,5 @@ RUN mvn clean package
 
 # -- Create project image 
 FROM openjdk:8-jre-alpine3.9
-COPY --from=builder /app/target/processor-1.0-SNAPSHOT.jar /processor.jar
+COPY --from=builder /app/target/processor-1.0-SNAPSHOT-jar-with-dependencies.jar /processor.jar
 CMD ["java", "-jar", "/processor.jar"]
