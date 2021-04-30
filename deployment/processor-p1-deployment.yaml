@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: processor-p1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: processor-p1
+  template:
+    metadata:
+      labels:
+        app: processor-p1
+    spec:
+      containers:
+      - name: processor-p1
+        image: github.com/weak-head/spark-streaming/processor:0.0.1
+        env:
+        - name: kafkaHost
+          value: "kafka.kafka.svc.cluster.local:9092"
+        - name: kafkaTopic
+          value: "zeus"
+        - name: kafkaGroupId
+          value: "processor-g1"
+        - name: sparkHost
+          value: "spark.spark.svc.cluster.local"
+        - name: sparkPort
+          value: "32771"
+        - name: sparkApp
+          value: "processor-app"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer-p2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer-p2
+  template:
+    metadata:
+      labels:
+        app: producer-p2
+    spec:
+      containers:
+      - name: producer-p2
+        image: github.com/weak-head/spark-streaming/producer:0.0.1
+        env:
+        - name: kafkaHost
+          value: "kafka.kafka.svc.cluster.local:9092"
+        - name: kafkaTopic
+          value: "zeus"
+        - name: producerPrefix
+          value: "p2"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
